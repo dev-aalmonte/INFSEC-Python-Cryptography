@@ -1,11 +1,22 @@
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_OAEP, AES
-from os import urandom
+from os import urandom, path
 from sys import argv
 
 if len(argv) != 5 or (argv[1] != "--encrypt" and argv[1] != "--decrypt"):
     print("Usage: fcrypt.py --encrypt <receiver-public-key> <plaintext-file> <encrypted-file>")
     print("       fcrypt.py --decrypt <receiver-private-key> <encrypted-file> <decrypted-file>")
+    exit(1)
+
+file1_name = argv[3]
+file2_name = argv[4]
+
+if not path.isfile(file1_name):
+    print(f"Error: could not find file {file1_name}")
+    exit(1)
+
+if not path.isfile(file2_name):
+    print(f"Error: could not find file {file2_name}")
     exit(1)
 
 # Params
