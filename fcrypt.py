@@ -3,7 +3,7 @@ from Crypto.Cipher import PKCS1_OAEP, AES
 from os import urandom
 from sys import argv
 
-if len(argv) < 5 or (argv[1] != "--encrypt" and argv[1] != "--decrypt"):
+if len(argv) != 5 or (argv[1] != "--encrypt" and argv[1] != "--decrypt"):
     print("Usage: fcrypt.py --encrypt <receiver-public-key> <plaintext-file> <encrypted-file>")
     print("       fcrypt.py --decrypt <receiver-private-key> <encrypted-file> <decrypted-file>")
     exit(1)
