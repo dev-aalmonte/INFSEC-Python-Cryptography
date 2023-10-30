@@ -1,3 +1,11 @@
+
+# COMP 2300 Introduction to Computer Security
+# Task 4 - Cryptography in Python
+#
+# Adonis_AlmonteRamirez@student.uml.edu
+# Gavin_Sadler@student.uml.edu
+# Christian_Kayego@student.uml.edu
+
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_OAEP, AES
 from os import urandom, path
