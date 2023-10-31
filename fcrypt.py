@@ -19,6 +19,7 @@ if len(argv) != 5 or (argv[1] != "--encrypt" and argv[1] != "--decrypt"):
     print("       fcrypt.py --decrypt <receiver-private-key> <encrypted-file> <decrypted-file>")
     exit(1)
 
+key_file_path = argv[2]
 read_file_name = argv[3]
 write_file_name = argv[4]
 
@@ -28,15 +29,18 @@ if not path.isfile(read_file_name):
 
 # Setup
 data = b""
+key_string = ""
 
 with open(read_file_name, "rb") as read_file_fp:
     data = read_file_fp.read()
 
-# Generate key object
+with open(key_file_path, "r") as key_file:
+    key_string = key_file.read()
 
+# Generate key object
 param_key = RSA.import_key(
             base64.b64decode(
-            argv[2].replace("-----BEGIN RSA PRIVATE KEY-----", "")\
+            key_string.replace("-----BEGIN RSA PRIVATE KEY-----", "")\
                    .replace("-----END RSA PRIVATE KEY-----", "")\
                    .replace("-----BEGIN PUBLIC KEY-----", "")\
                    .replace("-----END PUBLIC KEY-----", "")\
@@ -63,6 +67,8 @@ if argv[1] == "--encrypt":
     with open(write_file_name, "bw") as wfp:
         wfp.write(concentrated_message)
 
+    print(f"File encrypted: saved into {write_file_name}")
+
 elif argv[1] == "--decrypt":
 
     # Message De-Concatenation
@@ -85,3 +91,5 @@ elif argv[1] == "--decrypt":
 
     with open(write_file_name, "wb") as wfp:
         wfp.write(decrypted_message)
+
+    print(f"File decrypted: saved into {write_file_name}")
